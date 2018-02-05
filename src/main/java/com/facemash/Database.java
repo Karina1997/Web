@@ -24,7 +24,6 @@ public class Database {
 
     private PictureForm getpicture(int num, Statement stmt) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         String query = "select way, rating from picture where id=" + num;
-//        System.out.println("Connecting database...");
         try (
                 ResultSet rs = stmt.executeQuery(query)
         ) {
@@ -32,7 +31,6 @@ public class Database {
             while (rs.next()) {
                 form.set(num, rs.getString("way"), rs.getFloat("rating"));
             }
-//            System.out.println("com.facemash.Database connected!");
             return form;
         } catch (SQLException e) {
             throw new IllegalStateException("Cannot connect the database!", e);
@@ -55,7 +53,6 @@ public class Database {
                 count = rs.getInt("total");
             }
             rs.close();
-            //    System.out.println(count);
             do {
                 random2 = (int) (Math.random() * count) + 1;
             } while (random1.equals(random2));
@@ -71,11 +68,9 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-//            System.out.println("Im closing");
             stmt.close();
             connection.close();
         }
-//        System.out.println("Im here");
         return picturelist;
     }
 
@@ -88,12 +83,10 @@ public class Database {
         try {
             connection = DriverManager.getConnection(url, username, password);
             stmt = connection.createStatement();
-//            System.out.println("this picture way" + id);
             query = "SELECT rating FROM picture WHERE id=" + id;
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 rate = rs.getFloat("rating");
-                System.out.println(rate + " id:" + id);
             }
             rs.close();
             rate = (flag) ? rate + 1 : rate - 1;
@@ -102,7 +95,6 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-//            System.out.println("Im closing");
             stmt.close();
             connection.close();
         }
